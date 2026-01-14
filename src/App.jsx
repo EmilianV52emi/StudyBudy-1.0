@@ -3,6 +3,7 @@ import './App.css'
 
 function App() {
   // --- STATE INITIAL ---
+  const [isLoading, setIsLoading] = useState(true);
   const [activeTab, setActiveTab] = useState('focus');
   const [points, setPoints] = useState(100);
   const [timeNow, setTimeNow] = useState(new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }));
@@ -105,6 +106,11 @@ function App() {
       setHappiness(h => Math.max(0, h - 1));
     }, 10000);
     return () => clearInterval(lifeCycle);
+  }, []);
+
+  useEffect(() => {
+    // Mark as loaded after initial render
+    setIsLoading(false);
   }, []);
 
   // --- FUNCTII ---
