@@ -87,8 +87,16 @@ function App() {
 
   useEffect(() => {
     let msgInterval = null;
-    if (isRunning) msgInterval = setInterval(() => speakPet(), 60000); 
-    return () => clearInterval(msgInterval);
+    if (isRunning) {
+      msgInterval = setInterval(() => {
+        const randomMsg = motivationalQuotes[Math.floor(Math.random() * motivationalQuotes.length)];
+        setPetMessage(randomMsg);
+        setTimeout(() => setPetMessage(null), 6000);
+      }, 60000); 
+    }
+    return () => {
+      if (msgInterval) clearInterval(msgInterval);
+    };
   }, [isRunning]);
 
   useEffect(() => {
